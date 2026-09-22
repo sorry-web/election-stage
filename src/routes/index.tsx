@@ -95,13 +95,13 @@ function playTone(correct: boolean) {
   gain.gain.exponentialRampToValueAtTime(correct ? 0.18 : 0.12, context.currentTime + 0.01);
   gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + (correct ? 0.48 : 0.22));
 
-  const notes = correct ? [523.25, 659.25, 783.99] : [150, 105];
+  const notes = correct ? [523.25, 659.25, 783.99, 1046.5] : [150, 105];
   notes.forEach((frequency, index) => {
     const oscillator = context.createOscillator();
-    oscillator.type = correct ? "sine" : "sawtooth";
+    oscillator.type = correct ? (index % 2 === 0 ? "sine" : "triangle") : "sawtooth";
     oscillator.frequency.value = frequency;
     oscillator.connect(gain);
-    const start = context.currentTime + index * (correct ? 0.09 : 0.07);
+    const start = context.currentTime + index * (correct ? 0.1 : 0.07);
     oscillator.start(start);
     oscillator.stop(start + (correct ? 0.3 : 0.13));
   });
@@ -206,7 +206,7 @@ function CandidateStage({
         {candidates.map((candidate, index) => (
           <button
             key={candidate.id}
-            className="candidate-card"
+            className={`candidate-card ${candidate.preferred ? "candidate-card-gold" : ""}`}
             onClick={() => onSelect(candidate)}
             aria-label={`View ${candidate.name}, symbol ${candidate.symbol}`}
           >
@@ -255,6 +255,11 @@ function CandidateDetail({
 
   return (
     <section className={`detail-screen stage-enter ${candidate.preferred ? "detail-preferred" : "detail-alternate"}`}>
+      {!candidate.preferred && (
+        <div className="wrong-screen-mark" aria-hidden="true">
+          <X />
+        </div>
+      )}
       <button className="back-action" onClick={onBack} aria-label="Back to candidates">
         <ChevronLeft aria-hidden="true" /> Back
       </button>
