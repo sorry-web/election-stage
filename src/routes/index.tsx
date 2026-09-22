@@ -3,10 +3,10 @@ import { ArrowRight, Check, ChevronLeft, Sparkles, X } from "lucide-react";
 import { useState } from "react";
 
 import crocodile from "@/assets/crocodile.png";
-import doveAsset from "@/assets/dove.png.asset.json";
-import footballAsset from "@/assets/football.png.asset.json";
-import globeAsset from "@/assets/globe.png.asset.json";
-import peacockAsset from "@/assets/peacock.png.asset.json";
+import dove from "@/assets/dove.png";
+import football from "@/assets/football.png";
+import globe from "@/assets/globe.png";
+import peacock from "@/assets/peacock.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -51,7 +51,7 @@ const boys: Candidate[] = [
     id: "abubakr",
     name: "Abu Bakr",
     symbol: "Football",
-    image: footballAsset.url,
+    image: football,
     preferred: false,
     message: "A strong symbol — but school decisions need more than a good kick. Let’s keep the ball on the field.",
   },
@@ -59,7 +59,7 @@ const boys: Candidate[] = [
     id: "qamar",
     name: "Muhammad Qamar",
     symbol: "Globe",
-    image: globeAsset.url,
+    image: globe,
     preferred: false,
     message: "Thinking globally is great. For this election, though, the Crocodile has its eyes on your school day.",
   },
@@ -70,7 +70,7 @@ const girls: Candidate[] = [
     id: "azla",
     name: "Azla",
     symbol: "Peacock",
-    image: peacockAsset.url,
+    image: peacock,
     preferred: true,
     message: "Confident, thoughtful, and ready to let every idea shine. A choice with vision, voice, and brilliant feathers.",
   },
@@ -78,7 +78,7 @@ const girls: Candidate[] = [
     id: "minaal",
     name: "Minaal",
     symbol: "Dove",
-    image: doveAsset.url,
+    image: dove,
     preferred: false,
     message: "The Dove brings peace — perhaps too much peace. This campaign is ready to make some positive noise.",
   },
@@ -302,7 +302,7 @@ function FinalScreen({ onDone }: { onDone: () => void }) {
           <Check aria-hidden="true" />
         </div>
         <div className="final-pick">
-          <img src={peacockAsset.url} alt="Peacock" width={1024} height={1024} />
+          <img src={peacock} alt="Peacock" width={1024} height={1024} />
           <div><span>Peacock</span><strong>Azla</strong></div>
           <Check aria-hidden="true" />
         </div>
