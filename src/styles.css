@@ -99,6 +99,31 @@ button { font: inherit; letter-spacing: 0; -webkit-tap-highlight-color: transpar
 .candidate-grid-two { max-width: 810px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .candidate-card { position: relative; min-width: 0; min-height: clamp(300px, 40vh, 430px); padding: 1.2rem; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start; border: 1px solid color-mix(in oklab, var(--border) 80%, transparent); border-radius: var(--radius); background: var(--card); color: var(--card-foreground); box-shadow: var(--shadow-card); text-align: left; cursor: pointer; backdrop-filter: blur(24px) saturate(120%); transition: transform .22s cubic-bezier(.2,.75,.25,1), box-shadow .22s ease, border-color .22s ease; }
 .candidate-card:hover { transform: translateY(-5px); border-color: color-mix(in oklab, var(--campaign-green) 35%, var(--border)); box-shadow: var(--shadow-touch); }
+.candidate-card-gold {
+  border-color: color-mix(in oklab, var(--campaign-gold) 78%, var(--border));
+  background:
+    radial-gradient(circle at 75% 12%, color-mix(in oklab, var(--primary-foreground) 72%, transparent), transparent 28%),
+    linear-gradient(145deg, color-mix(in oklab, var(--campaign-gold) 28%, var(--background)), color-mix(in oklab, var(--campaign-gold) 70%, var(--background)));
+  box-shadow: 0 28px 70px -30px color-mix(in oklab, var(--campaign-gold) 82%, var(--campaign-green-deep));
+}
+.candidate-card-gold::before {
+  content: "Top choice";
+  position: absolute;
+  z-index: 2;
+  top: 1rem;
+  right: 1rem;
+  padding: .45rem .7rem;
+  border: 1px solid color-mix(in oklab, var(--campaign-gold) 55%, var(--campaign-green-deep));
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--background) 58%, transparent);
+  color: var(--campaign-green-deep);
+  font-size: .62rem;
+  font-weight: 850;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(12px);
+}
+.candidate-card-gold:hover { border-color: var(--campaign-gold); box-shadow: 0 24px 58px -20px color-mix(in oklab, var(--campaign-gold) 85%, var(--campaign-green-deep)); }
 .card-number { position: absolute; top: 1.2rem; left: 1.25rem; z-index: 1; color: var(--muted-foreground); font-size: .72rem; font-weight: 700; }
 .symbol-frame { width: 100%; min-height: 0; flex: 1; display: grid; place-items: center; padding: 1rem; }
 .symbol-frame img { width: 100%; height: clamp(150px, 22vh, 240px); object-fit: contain; mix-blend-mode: multiply; user-select: none; }
@@ -108,6 +133,9 @@ button { font: inherit; letter-spacing: 0; -webkit-tap-highlight-color: transpar
 .card-arrow svg { width: 1rem; }
 
 .detail-screen { min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+.wrong-screen-mark { position: fixed; inset: 0; z-index: 3; display: grid; place-items: center; pointer-events: none; animation: wrong-screen-out .9s ease .45s both; }
+.wrong-screen-mark::before { content: ""; position: absolute; width: min(58vw, 470px); aspect-ratio: 1; border-radius: 50%; background: color-mix(in oklab, var(--campaign-red) 12%, transparent); box-shadow: 0 0 0 34px color-mix(in oklab, var(--campaign-red) 5%, transparent); }
+.wrong-screen-mark svg { position: relative; width: min(43vw, 340px); height: min(43vw, 340px); color: var(--campaign-red); stroke-width: 1.4; filter: drop-shadow(0 20px 34px color-mix(in oklab, var(--campaign-red) 28%, transparent)); animation: wrong-screen-pop .55s cubic-bezier(.16,1.35,.35,1) both; }
 .detail-visual { min-width: 0; display: grid; place-items: center; padding: clamp(5rem, 7vw, 7rem); background: color-mix(in oklab, var(--secondary) 65%, transparent); }
 .detail-visual img { width: 100%; max-width: 520px; max-height: 55dvh; object-fit: contain; mix-blend-mode: multiply; }
 .detail-copy { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(3rem, 7vw, 7rem); }
@@ -151,6 +179,8 @@ button { font: inherit; letter-spacing: 0; -webkit-tap-highlight-color: transpar
 
 @keyframes stage-in { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes wrong-pop { 0% { transform: scale(.5) rotate(-10deg); } 55% { transform: scale(1.18) rotate(6deg); } 100% { transform: scale(1) rotate(0); } }
+@keyframes wrong-screen-pop { 0% { opacity: 0; transform: scale(.15) rotate(-18deg); } 65% { opacity: 1; transform: scale(1.12) rotate(4deg); } 100% { opacity: 1; transform: scale(1) rotate(0); } }
+@keyframes wrong-screen-out { 0%, 45% { opacity: 1; } 100% { opacity: 0; visibility: hidden; } }
 @keyframes check-pop { 0% { opacity: 0; transform: scale(.25) rotate(-18deg); } 70% { opacity: 1; transform: scale(1.12) rotate(4deg); } 100% { transform: scale(1) rotate(0); } }
 @keyframes halo-pulse { from { transform: scale(.92); opacity: .6; } to { transform: scale(1.04); opacity: 1; } }
 @keyframes confetti-fall { 0% { opacity: 0; transform: translateY(-5vh) rotate(0); } 12% { opacity: 1; } 100% { opacity: .9; transform: translateY(110vh) rotate(720deg); } }
